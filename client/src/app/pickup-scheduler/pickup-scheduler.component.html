@@ -1,0 +1,112 @@
+<div class="row">
+    <div class="col-12">
+        <p-schedule [events]="requests" [header]="headerConfig" (onEventClick)="oneventclick($event)"></p-schedule>
+    </div>
+</div>
+<p-dialog header="Request Details" [(visible)]="dialogVisible" [contentStyle]="{'max-height':'455px', 'min-height':'450px'}" [width]="700" [height]="500">
+    <div class="container-fluid" *ngIf="requests">
+      <h2 class="card-title">{{selectedRequest.eventType == 1 ? "Waste Pickup" : "Lab Inspection"}}</h2>
+      <div *ngIf="selectedRequest.eventType == 1">
+        <table class="table" *ngIf="selectedRequest">
+          <thead>
+              <tr>
+                <th scope="col">Scheduled Time</th>
+                <th scope="col">Lab Manager</th>
+                <th scope="col">Location</th>
+              </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{selectedRequest.requested}}</td>
+              <td>{{selectedRequest.requester}}</td>
+              <td>{{selectedRequest.location}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <h2 class="card-title">Items</h2>
+        <div class="form-group row">
+          <div class="col-sm-12">
+            <p-accordion>
+              <p-accordionTab header="Waste {{i+1}}" *ngFor="let item of selectedRequest.items; let i=index;">
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="form-group col-4">
+                      <label for="container">Container Type</label>
+                      <input type="text" id="container" class="form-control" value="{{item.containerType}}" readonly>
+                    </div>
+                    <div class="form-group col-4">
+                      <label for="hazard">Hazard Class</label>
+                      <input type="text" id="hazard" class="form-control" value="{{item.hazardClass}}" readonly>
+                    </div>
+                    <div class="form-group col-4">
+                      <label for="items">Chemicals</label>
+                      <input type="text" id="items" class="form-control" value="{{selectedRequest.items[i].chemicals.length}}" readonly>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-8">
+                      <p class="h5">Chemicals</p>
+                      <table class="table">
+                          <thead class="thead-light">
+                            <tr>
+                              <th scope="col">Name</th>
+                              <th scope="col">Percent Fraction</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let chemical of selectedRequest.items[i].chemicals; let i=index;">
+                              <td>{{chemical.name}}</td>
+                              <td>{{chemical.percentFraction}}%</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                </div>
+              </p-accordionTab>
+            </p-accordion>
+          </div>
+        </div>  
+      </div>
+      <div *ngIf="selectedRequest.eventType == 2">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Requested On</th>
+              <th scope="col">Service Time</th>
+              <th scope="col">Inspector</th>
+              <th scope="col">Lab</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{selectedRequest.requested}}</td>
+              <td>{{selectedRequest.start}}</td>
+              <td>{{selectedRequest.requester}}</td>
+              <td>{{selectedRequest.location}}</td>
+            </tr>
+          </tbody>
+          </table>        
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-2">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" id="serviced" [formControl]="serviced" readonly>
+              Serviced
+              <i class="input-helper"></i>
+            </label>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <button class="btn btn-primary" (click)="serviceRequest()" [disabled]="serviced.value">Serviced!</button>
+        </div>
+      </div>
+    </div>
+</p-dialog>
+<p-growl [(value)]="msgs" [sticky]="true"></p-growl>
+<div class="row mt-5" *ngIf="loading">
+  <div class="col-6 offset-6 mt-3">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+</div>

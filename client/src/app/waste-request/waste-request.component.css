@@ -1,0 +1,9 @@
+.remove {
+  color: #dc3545;
+}
+.add{
+  color: #28a745;
+}
+button:hover {
+  color: #fff;
+}

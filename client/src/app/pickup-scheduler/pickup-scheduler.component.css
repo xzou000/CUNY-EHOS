@@ -1,0 +1,6 @@
+.form-check .form-check-label .input-helper:before {
+  left: 15px;
+}
+.form-check .form-check-label .input-helper:after { 
+  left: 15px;
+}

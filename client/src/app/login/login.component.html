@@ -1,0 +1,24 @@
+<h5 class="card-title text-center col-blue-grey" style="font-weight: 700;">SIGN IN</h5>
+<form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+  <div class="form-group row">
+      <div class="col-md-10 offset-md-1">
+          <input class="form-control" [ngClass]= "{'is-invalid': loginForm.controls.email.errors && loginForm.controls.email.dirty, 'valid': !loginForm.controls.email.errors}" type="text" placeholder="email" name="email" formControlName="email">
+          <div *ngIf="loginForm.controls.email.errors && loginForm.controls.email.dirty" class="invalid-feedback">Please enter an email.</div>
+      </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-10 offset-md-1">
+        <input class="form-control" type="password" placeholder="password" name="password" formControlName="password">
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-10 offset-md-1">
+      <button type="submit" class="btn btn-primary">Sign in</button>
+    </div>
+  </div>
+</form>
+<p-sidebar [(visible)]="incorrectCredentials" position="bottom" [baseZIndex]="10000">
+  <h1 style="font-weight:normal">Uh oh!</h1>
+  <p>{{message}}</p>
+  <button type="button" (click)="incorrectCredentials=false" class="btn btn-primary">Okay</button>
+</p-sidebar>

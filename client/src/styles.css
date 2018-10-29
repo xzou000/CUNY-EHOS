@@ -1,0 +1,281 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+/* GENERAL CSS STUFF */
+body {
+  background-color: #E9E9E9;
+  -moz-transition: all 0.55s;
+  -o-transition: all 0.55s;
+  -webkit-transition: all 0.55s;
+  transition: all 0.55s;
+  font-family: 'Roboto', Arial, Tahoma, sans-serif;
+}
+img {
+  max-height: 225px;
+}
+.btn {
+  color: #fff;
+  width: 100%;
+}
+.topbar {
+  background-color: #673AB7;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  display: block;
+  padding: 0;
+  height: 70px;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9997;
+  -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,.3);
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,.3);
+}
+
+#main-view {
+  margin-left: 300px;
+  padding-top: 80px;
+}
+#lab-view {
+  padding-top: 90px;
+}
+#sidebar {
+  background-color: #fff;
+  padding-left: 0;
+  padding-right: 0;
+  position: fixed;
+  top: 62.5px;
+  bottom: 0;
+  left: 0;
+  height: calc(100% - 70px);
+  width: 300px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-right: 1px solid #E9E9E9;
+}
+
+@media screen and (max-width: 64em) {
+  .topbar {
+    text-align: center;
+  }
+  #sidebar {
+    top: 100px;
+    left: -300px;
+    -webkit-transition: left .3s;
+    transition: left .3s;
+    z-index: 9999;
+  }
+  #main-view {
+    margin-left: 0;
+    margin-top: 90px;
+  }
+  #lab-view {
+    padding-top: 110px;    
+  }
+}
+/* MATERIAL COLOR PALLETTE*/
+.bg-red {
+  background-color: #F44336 !important;
+  color: #fff; }
+  .bg-red .content .text,
+  .bg-red .content .number {
+    color: #fff !important; }
+.bg-deep-red {
+  background-color: #C62828 !important;
+  color: #fff; }
+  .bg-deep-red .content .text,
+  .bg-deep-red .content .number {
+    color: #fff !important; }
+.bg-pink {
+  background-color: #E91E63 !important;
+  color: #fff; }
+  .bg-pink .content .text,
+  .bg-pink .content .number {
+    color: #fff !important; }
+.bg-purple {
+  background-color: #9C27B0 !important;
+  color: #fff; }
+  .bg-purple .content .text,
+  .bg-purple .content .number {
+    color: #fff !important; }
+.bg-deep-purple {
+  background-color: #673AB7 !important;
+  color: #fff; }
+  .bg-deep-purple .content .text,
+  .bg-deep-purple .content .number {
+    color: #fff !important; }
+.bg-indigo {
+  background-color: #3F51B5 !important;
+  color: #fff; }
+  .bg-indigo .content .text,
+  .bg-indigo .content .number {
+    color: #fff !important; }
+.bg-blue {
+  background-color: #2196F3 !important;
+  color: #fff; }
+  .bg-blue .content .text,
+  .bg-blue .content .number {
+    color: #fff !important; }
+.bg-deep-blue{
+  background-color: #0D47A1 !important;
+  color: #fff; }
+  .bg-deep-blue .content .text,
+  .bg-deep-blue .content .number {
+    color: #fff !important; }
+.bg-light-blue {
+  background-color: #03A9F4 !important;
+  color: #fff; }
+  .bg-light-blue .content .text,
+  .bg-light-blue .content .number {
+    color: #fff !important; }
+.bg-cyan {
+  background-color: #00BCD4 !important;
+  color: #fff; }
+  .bg-cyan .content .text,
+  .bg-cyan .content .number {
+    color: #fff !important; }
+.bg-teal {
+  background-color: #009688 !important;
+  color: #fff; }
+  .bg-teal .content .text,
+  .bg-teal .content .number {
+    color: #fff !important; }
+.bg-green {
+  background-color: #4CAF50 !important;
+  color: #fff; }
+  .bg-green .content .text,
+  .bg-green .content .number {
+    color: #fff !important; }
+.bg-light-green {
+  background-color: #8BC34A !important;
+  color: #fff; }
+  .bg-light-green .content .text,
+  .bg-light-green .content .number {
+    color: #fff !important; }
+.bg-lime {
+  background-color: #CDDC39 !important;
+  color: #fff; }
+  .bg-lime .content .text,
+  .bg-lime .content .number {
+    color: #fff !important; }
+.bg-yellow {
+  background-color: #ffe821 !important;
+  color: #fff; }
+  .bg-yellow .content .text,
+  .bg-yellow .content .number {
+    color: #fff !important; }
+.bg-amber {
+  background-color: #FFC107 !important;
+  color: #fff; }
+  .bg-amber .content .text,
+  .bg-amber .content .number {
+    color: #fff !important; }
+.bg-orange {
+  background-color: #FF9800 !important;
+  color: #fff; }
+  .bg-orange .content .text,
+  .bg-orange .content .number {
+    color: #fff !important; }
+.bg-deep-orange {
+  background-color: #FF5722 !important;
+  color: #fff; }
+  .bg-deep-orange .content .text,
+  .bg-deep-orange .content .number {
+    color: #fff !important; }
+.bg-brown {
+  background-color: #795548 !important;
+  color: #fff; }
+  .bg-brown .content .text,
+  .bg-brown .content .number {
+    color: #fff !important; }
+.bg-grey {
+  background-color: #9E9E9E !important;
+  color: #fff; }
+  .bg-grey .content .text,
+  .bg-grey .content .number {
+    color: #fff !important; }
+.bg-blue-grey {
+  background-color: #607D8B !important;
+  color: #fff; }
+  .bg-blue-grey .content .text,
+  .bg-blue-grey .content .number {
+    color: #fff !important; }
+.bg-black {
+  background-color: #000000 !important;
+  color: #fff; }
+  .bg-black .content .text,
+  .bg-black .content .number {
+    color: #fff !important; }
+.bg-white {
+  background-color: #ffffff !important;
+  color: #fff; }
+  .bg-white .content .text,
+  .bg-white .content .number {
+    color: #fff !important; }
+.col-red {
+  color: #F44336 !important; }
+.col-deep-red{
+  color: #C62828 !important;}
+.col-pink {
+  color: #E91E63 !important; }
+.col-purple {
+  color: #9C27B0 !important; }
+.col-deep-purple {
+  color: #673AB7 !important; }
+.col-indigo {
+  color: #3F51B5 !important; }
+.col-blue {
+  color: #2196F3 !important; }
+.col-deep-blue{
+  color: #0D47A1 !important; }
+.col-light-blue {
+  color: #03A9F4 !important; }
+.col-cyan {
+  color: #00BCD4 !important; }
+.col-teal {
+  color: #009688 !important; }
+.col-green {
+  color: #4CAF50 !important; }
+.col-light-green {
+  color: #8BC34A !important; }
+.col-lime {
+  color: #CDDC39 !important; }
+.col-yellow {
+  color: #ffe821 !important; }
+
+.col-amber {
+  color: #FFC107 !important; }
+
+.col-orange {
+  color: #FF9800 !important; }
+
+.col-deep-orange {
+  color: #FF5722 !important; }
+
+.col-brown {
+  color: #795548 !important; }
+
+.col-grey {
+  color: #9E9E9E !important; }
+
+.col-blue-grey {
+  color: #607D8B !important; }
+
+.col-black {
+  color: #000000 !important; }
+
+.col-white {
+  color: #ffffff !important; }
+
+  .card.info-box {
+    border-radius: 0% !important;
+    border: 0;
+    background-color: #fff !important;
+    background-clip: border-box;
+    text-align: left;
+    text-shadow: none; 
+  }
+  i.icon{
+    font-size: 3rem;
+  }

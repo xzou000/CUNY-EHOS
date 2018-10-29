@@ -1,0 +1,84 @@
+<div class="row clearfix">
+  <div class="col-md-12 table-responsive">
+    <div class="card info-box">
+      <div class="card-body">
+        <h3 class="card-title">Waste Pickup Request</h3>
+        <p class="text-muted">Enter details below.</p>
+        <form [formGroup]="wasteForm">
+          <div formArrayName="wasteItems" *ngFor="let wasteItem of wasteForm.get('wasteItems').controls; let i = index;">
+            <div class="form-group row">
+              <div class="col-md-8 col-lg-6">
+                <p class="h4">Waste Item {{i+1}}</p>
+              </div>
+              <div class="col-md-4 col-lg-2">
+                <button class="btn btn-outline-danger remove" (click)="removeWasteItem(i)">Remove Item</button>
+              </div>
+            </div>
+            <div [formGroupName]="i">
+              <div class="form-group row">
+                <div class="input-group col-lg-2">
+                    <select class="form-control" formControlName="containerType" name="containerType">
+                      <option value="" disabled selected>Container Type</option>
+                      <option value="G">Gallon</option>
+                      <option value="Q">Quart</option>
+                    </select>
+                  </div>
+                  <div class="input-group col-lg-2">
+                    <select class="form-control" formControlName="hazardClass" name="hazardClass">
+                      <option value="" disabled selected>Hazard Class</option>
+                      <option value="TOX">Toxins</option>
+                    </select>
+                  </div>
+                  <div class="input-group col-lg-2">
+                    <input type="number" class="form-control" formControlName="quantity" placeholder="Quantity"name="quantity">        
+                    <div class="input-group-append">
+                      <span class="input-group-text">kg</span>
+                    </div>
+                  </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-lg-6">
+                  <p class="h5">Chemicals</p>
+                  <div formArrayName="chemicals" *ngFor="let chemical of wasteForm.get('wasteItems').controls[i].get('chemicals').controls; let j = index;">
+                    <div [formGroupName]="j" class=" form-group row">
+                      <div class="input-group col-lg-6">
+                        <input type="text" formControlName="name" name="name" placeholder="Name" class="form-control">
+                      </div>
+                      <div class="input-group col-lg-4">
+                        <input type="number" formControlName="percentFraction" name="percentFraction" placeholder="Percent" class="form-control">    
+                        <div class="input-group-append">
+                          <span class="input-group-text">%</span>
+                        </div>
+                      </div>
+                      <div class="col-lg-2">
+                        <button class='btn btn-outline-danger remove' (click)="removeChemical(i,j)">
+                            <i class="fa fw fa-minus"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-2">
+                  <button class="btn btn-outline-success add" (click)="addChemical(i)" [disabled]="!wasteForm.get('wasteItems').controls[i].get('chemicals').valid">Add Chemical</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="form-group row">
+          <div class="col-md-4 col-lg-3 col-xl-2">
+            <button (click)="addWasteItem()" [disabled]="!wasteForm.valid" class="btn btn-primary">Add Waste</button>
+          </div>
+        </div>  
+        <div class="row">
+          <div class="col-md-4 col-lg-3 col-xl-2">
+            <button class="btn btn-success" [disabled]="!wasteForm.valid" (click)="createRequest()">Send Request</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p-growl [(value)]="msgs" [sticky]="true" [baseZIndex]="11100"></p-growl>
+<p-progressSpinner *ngIf="loading"></p-progressSpinner>
+       

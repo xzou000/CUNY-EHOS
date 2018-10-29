@@ -1,0 +1,18 @@
+.logo {
+  float: none;
+  color: #663399 !important;
+  font-size: 24px;
+  letter-spacing: .06em;
+  line-height: 46px;
+  font-weight: 600;
+}
+.logo span span{
+  color: #435966;
+}
+p a {
+  color: #663399 !important;
+}
+p a:hover {
+  color: #673AB7 !important;
+  text-decoration: none;
+}

@@ -1,0 +1,25 @@
+/* Styling our dashboard for our EHOS so that it has an administrative feel to it. */
+
+/* The main container for rendering a view onto our app. */
+
+/* Static Sidebar */
+nav a {
+  color: #435966;
+  font-size: 16px;
+  margin: 0 0 0 30px;
+  display: block;
+}
+.nav-item {
+  width: 100%;
+  height: 50px;
+  display: block;
+  padding: 15px 0 0 25px;
+  cursor: pointer;
+  border-top: 1px solid #e3e9ea;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.nav-item:hover {
+  background-color: #E9E9E9;
+}
+

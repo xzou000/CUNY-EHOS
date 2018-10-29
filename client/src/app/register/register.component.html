@@ -1,0 +1,114 @@
+<h5 class="card-title text-center font-bold col-blue-grey" style="font-weight: 700;">SIGN UP</h5>
+<form [formGroup]="registerForm" (ngSubmit)="onRegisterFormSubmit()">
+  <div class="form-group row">
+    <div class="col-md-5 offset-md-1">
+        <input class="form-control" [ngClass]="{'is-invalid': (registerForm.controls.firstName.errors && registerForm.controls.firstName.dirty), 'is-valid': !registerForm.controls.firstName.errors}" type="text" placeholder="first" name="firstName" formControlName="firstName">
+        <div *ngIf="registerForm.controls.firstName.errors?.required && registerForm.controls.firstName.dirty" class="invalid-feedback">You must provide a first name.</div>
+    </div>
+    <div class="col-md-5">
+        <input class="form-control" [ngClass]="{'is-invalid': (registerForm.controls.lastName.errors && registerForm.controls.lastName.dirty), 'is-valid': !registerForm.controls.lastName.errors}" type="text" placeholder="last" name="lastName"  formControlName="lastName">
+        <div *ngIf="registerForm.controls.lastName.errors?.required && registerForm.controls.lastName.dirty" class="invalid-feedback">You must provide a last name.</div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-10 offset-md-1">
+        <input class="form-control" [ngClass]="{'is-invalid': ((registerForm.controls.email.errors || isEmailTaken) && registerForm.controls.email.dirty), 'is-valid': !registerForm.controls.email.errors}" type="email" placeholder="email" name="email"  formControlName="email" (blur) ="isEmailAvailable()">
+        <div *ngIf="(registerForm.controls.email.errors || isEmailTaken) && registerForm.controls.email.dirty" class="invalid-feedback">
+            <div *ngIf="registerForm.controls.email.errors?.required">
+              You must provide an email.
+            </div>
+            <div *ngIf="isEmailTaken">
+              This email is already in the system.
+            </div>
+            <div *ngIf="registerForm.controls.email.errors?.minlength">
+              Your email must be greater than 5 characters.
+            </div>
+            <div *ngIf="registerForm.controls.email.errors?.maxlength">
+              Your email must be less than 40 characters.
+            </div>
+            <div *ngIf="registerForm.controls.email.errors?.invalidEmail && (!registerForm.controls.email.errors?.required) && (!registerForm.controls.email.errors?.minlength) && (!registerForm.controls.email.errors?.maxlength)">
+              Invalid email.
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-4 offset-md-1">
+        <select class="form-control" [ngClass]="{'is-invalid': (registerForm.controls.department.errors && registerForm.controls.department.dirty), 'is-valid': !registerForm.controls.department.errors}" name="department" formControlName="department">
+          <option value="" disabled selected>department</option>
+          <option value="BIO">Biology</option>
+          <option value="CHE">Chemical Engineering</option>
+          <option value="CHEM">Chemistry</option>
+          <option value="EE">Electrical Engineering</option>
+          <option value="PHYS">Physics</option>
+        </select>
+        <div *ngIf="registerForm.controls.department.errors && registerForm.controls.department.dirty" class="invalid-feedback">You must select a department.</div>
+    </div>    
+    <div class="col-md-4">
+        <select class="form-control" [ngClass]="{'is-invalid': (registerForm.controls.building.errors && registerForm.controls.building.dirty), 'is-valid': !registerForm.controls.building.errors}" name="building" formControlName="building">
+          <option value="" disabled selected>building</option>
+          <option value="NAC">NAC</option>
+          <option value="SHP">Shephard Hall</option>
+          <option value="MSK">Marshak</option>
+        </select>
+        <div *ngIf="registerForm.controls.building.errors && registerForm.controls.building.dirty" class="invalid-feedback">You must select your building location.</div>
+    </div>
+    <div class="col-md-2">
+        <input class="form-control" [ngClass]="{'is-invalid': (registerForm.controls.room.errors && registerForm.controls.room.dirty), 'is-valid': !registerForm.controls.room.errors}" type="text" placeholder="room" name="room" formControlName="room">
+        <div *ngIf="registerForm.controls.room.errors?.required && registerForm.controls.room.dirty" class="invalid-feedback">You must provide a room number.</div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-10 offset-md-1">
+        <select class="form-control" [ngClass]="{'is-invalid': (registerForm.controls.jobTitle.errors && registerForm.controls.jobTitle.dirty), 'is-valid': !registerForm.controls.jobTitle.errors}" name="jobTitle" formControlName="jobTitle">
+          <option value="" disabled selected>job title</option>
+          <option value="1">EHOS</option>
+          <option value="2">Lab Operator</option>
+        </select>
+        <div *ngIf="registerForm.controls.jobTitle.errors && registerForm.controls.jobTitle.dirty" class="invalid-feedback">You must select your job title.</div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-10 offset-md-1">
+        <input [textMask]="{mask: mask}" class="form-control" [ngClass]="{'is-invalid': (registerForm.controls.phoneNumber.errors && registerForm.controls.phoneNumber.dirty), 'is-valid': !registerForm.controls.phoneNumber.errors}" type="text" placeholder="phone number" name="phoneNumber"  formControlName="phoneNumber">
+        <div *ngIf="registerForm.controls.phoneNumber.errors && registerForm.controls.phoneNumber.dirty" class="invalid-feedback">You must provide a valid phone number.</div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-10 offset-md-1">
+        <input class="form-control" [ngClass]="{'is-invalid': (registerForm.controls.password.errors && registerForm.controls.password.dirty), 'is-valid': !registerForm.controls.password.errors}" type="password" placeholder="password" name="password" formControlName="password">
+        <div class="invalid-feedback" *ngIf="registerForm.controls.password.errors && registerForm.controls.password.dirty">
+          <div *ngIf="registerForm.controls.password.errors?.required">
+            You must provide a password.
+          </div>
+          <div *ngIf="registerForm.controls.password.errors?.minlength">
+            Your password must be greater than 8 characters.
+          </div>
+          <div *ngIf="registerForm.controls.password.errors?.maxlength">
+            Your password must be less than 40 characters.
+          </div>
+          <div *ngIf="registerForm.controls.password.errors?.invalidPassword && (!registerForm.controls.password.errors?.required) && (!registerForm.controls.password.errors?.minlength) && (!registerForm.controls.password.errors?.maxlength)">
+            Password must have at least a lowercase letter, uppercase letter, and a number.
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-10 offset-md-1">
+        <input class="form-control"  [ngClass]="{'is-invalid': (registerForm.errors && registerForm.controls.confirmPassword.dirty), 'is-valid': (!registerForm.errors?.passwordsNoMatch && registerForm.controls.confirmPassword.dirty)}" type="password" placeholder="confirm password" name="confirmPassword" formControlName="confirmPassword">
+        <div class="invalid-feedback" *ngIf="registerForm.errors?.passwordsNoMatch && registerForm.controls.confirmPassword.dirty">
+          Passwords do not match!
+        </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-10 offset-md-1">
+      <button [disabled]="!registerForm.valid || isEmailTaken" type="submit" class="btn btn-primary" (click)="showDialog()">Register</button>
+    </div>
+  </div>
+  <p-sidebar [(visible)]="display" position="bottom" [baseZIndex]="10000" (onHide)="closeDialog()">
+    <h1 style="font-weight:normal">{{dialogTitle}}</h1>
+    <p>{{dialogBody}}</p>
+    <button type="button" (click)="closeDialog()" class="btn btn-primary">Okay</button>
+  </p-sidebar>
+</form>

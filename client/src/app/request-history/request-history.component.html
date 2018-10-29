@@ -1,0 +1,92 @@
+<div class="card">
+  <div class="card-body">
+    <p class="h3">Your History</p>
+    <div class="form-group row">
+      <div class="col-sm-12">
+        <p-accordion>
+          <p-accordionTab header="Date: {{request.requested}}" *ngFor="let request of requests; let i=index;">
+            <div class="container-fluid">
+              <div class="form-group row">
+                <div class="col-12">
+                  <table class="table">
+                    <thead>
+                        <tr>
+                          <th scope="col">Requested</th>
+                          <th scope="col">Lab Manager</th>
+                          <th scope="col">Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{{request.requested}}</td>
+                        <td>{{request.requester}}</td>
+                        <td>{{request.location}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <p class="h3">Items</p>
+              <div class="form-group row">
+                <div class="col-sm-12">
+                  <p-accordion>
+                    <p-accordionTab header="Waste {{i+1}}" *ngFor="let item of request.items; let i=index;">
+                      <div class="container-fluid">
+                        <div class="row">
+                          <div class="form-group col-4">
+                            <label for="container">Container Type</label>
+                            <input type="text" id="container" class="form-control" value="{{item.containerType}}" readonly>
+                          </div>
+                          <div class="form-group col-4">
+                            <label for="hazard">Hazard Class</label>
+                            <input type="text" id="hazard" class="form-control" value="{{item.hazardClass}}" readonly>
+                          </div>
+                          <div class="form-group col-4">
+                            <label for="items">Chemicals</label>
+                            <input type="text" id="items" class="form-control" value="{{request.items[i].chemicals.length}}" readonly>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-8">
+                            <p class="h5">Chemicals</p>
+                            <table class="table">
+                                <thead class="thead-light">
+                                  <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Percent Fraction</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let chemical of request.items[i].chemicals; let i=index;">
+                                    <td>{{chemical.name}}</td>
+                                    <td>{{chemical.percentFraction}}%</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                      </div>
+                    </p-accordionTab>
+                  </p-accordion>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-5">
+                  <label for="serviced">Serviced?</label>
+                  <input type="text" class="form-control" id="serviced"  value="{{request.serviced ? 'YES': 'NO'}}"/>
+                </div>
+                <div class="col-md-5">
+                  <label for="start">Service Date</label>
+                  <input type="text" class="form-control" id="start" value="{{request.start ? request.start : 'Not Scheduled'}}"/>
+                </div>  
+                <div class="col=md-5">
+
+                </div>
+              </div>  
+            </div>
+          </p-accordionTab>
+        </p-accordion>
+      </div>
+    </div>  
+  </div>
+</div>

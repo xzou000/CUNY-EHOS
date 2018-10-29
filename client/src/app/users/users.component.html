@@ -1,0 +1,152 @@
+<div class="card info-box">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-sm-6 col-md-6 col-lg-5"><p class="h2">Users</p></div>
+      <div class="col-sm-5 col-md-5 col-lg-5 offset-sm-1 offset-md-1 offset-lg-2">
+        <button class="btn btn-secondary" (click)="displayLab=true;">Approve All Lab Accounts</button>
+      </div>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Department</th>
+          <th scope="col">Role</th>
+          <th scope="col" class="text-center">Approved</th>
+          <th scope="col"></th>            
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users; index as i">
+          <td>{{user.last}}, {{user.first}}</td>
+          <td>{{user.department}}</td>
+          <td>{{user.privilege == 1 ? "EHOS": "Lab"}}</td>          
+          <td class="text-center"><div class="badge" [ngClass]="{'badge-primary': user.approved, 'badge-danger': !user.approved}">{{user.approved ? "Yes": "No"}}</div></td>            
+          <td><button type="button" class="btn btn-primary" (click)="openDialog(i)" [disabled]="user.privilege == 1">Edit</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<p-sidebar [(visible)]="display" position="bottom" [baseZIndex]="10000" styleClass="ui-sidebar-md" (onHide)="closeDialog()">
+    <h2 style="font-weight:normal">{{name != '' ? users[user].first +" "+users[user].last : ""}}</h2>
+    <p class="h5 text-muted">Update available details below.</p>
+    <form [formGroup]="userForm">
+      <div class="form-group row">
+          <div class="col-md-3">
+              <input class="form-control" [ngClass]="{'is-invalid': (userForm.controls.first.errors && userForm.controls.first.dirty), '': !userForm.controls.first.errors}" type="text" placeholder="first" name="first" formControlName="first">
+              <div *ngIf="userForm.controls.first.errors?.required && userForm.controls.first.dirty" class="invalid-feedback">You must provide a first name.</div>
+          </div>
+          <div class="col-md-3">
+              <input class="form-control" [ngClass]="{'is-invalid': (userForm.controls.last.errors && userForm.controls.last.dirty), '': !userForm.controls.last.errors}" type="text" placeholder="last" name="last"  formControlName="last">
+              <div *ngIf="userForm.controls.last.errors?.required && userForm.controls.last.dirty" class="invalid-feedback">You must provide a last name.</div>
+          </div>
+          <div class="col-md-4">
+              <input class="form-control" [ngClass]="{'is-invalid': ((userForm.controls.email.errors || isEmailTaken) && userForm.controls.email.dirty), '': !userForm.controls.email.errors}" type="email" placeholder="email" name="email"  formControlName="email" (focus)="isEmailTaken=false" (blur) ="isEmailAvailable()">
+              <div *ngIf="(userForm.controls.email.errors || isEmailTaken) && userForm.controls.email.dirty" class="invalid-feedback">
+                  <div *ngIf="userForm.controls.email.errors?.required">
+                    You must provide an email.
+                  </div>
+                  <div *ngIf="isEmailTaken">
+                    This email is already in the system.
+                  </div>
+                  <div *ngIf="userForm.controls.email.errors?.minlength">
+                    Your email must be greater than 5 characters.
+                  </div>
+                  <div *ngIf="userForm.controls.email.errors?.maxlength">
+                    Your email must be less than 40 characters.
+                  </div>
+                  <div *ngIf="userForm.controls.email.errors?.invalidEmail && (!userForm.controls.email.errors?.required) && (!userForm.controls.email.errors?.minlength) && (!userForm.controls.email.errors?.maxlength)">
+                    Invalid email.
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" id="approved" [formControl]="approved" >
+                Approved
+                <i class="input-helper"></i>
+              </label>
+            </div>
+          </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-3">
+          <select class="form-control" [ngClass]="{'is-invalid': (userForm.controls.department.errors && userForm.controls.department.dirty), '': !userForm.controls.department.errors}" name="department" formControlName="department">
+            <option value="" disabled selected>department</option>
+            <option value="BIO">Biology</option>
+            <option value="CHE">Chemical Engineering</option>
+            <option value="CHEM">Chemistry</option>
+            <option value="EE">Electrical Engineering</option>
+            <option value="PHYS">Physics</option>
+          </select>
+          <div *ngIf="userForm.controls.department.errors && userForm.controls.department.dirty" class="invalid-feedback">You must select a department.</div>
+        </div>    
+        <div class="col-md-3">
+          <select class="form-control" [ngClass]="{'is-invalid': (userForm.controls.building.errors && userForm.controls.building.dirty), '': !userForm.controls.building.errors}" name="building" formControlName="building">
+            <option value="" disabled selected>building</option>
+            <option value="NAC">NAC</option>
+            <option value="SHP">Shephard Hall</option>
+            <option value="MSK">Marshak</option>
+          </select>
+          <div *ngIf="userForm.controls.building.errors && userForm.controls.building.dirty" class="invalid-feedback">You must select your building location.</div>
+        </div>
+        <div class="col-md-2">
+          <input class="form-control" [ngClass]="{'is-invalid': (userForm.controls.room.errors && userForm.controls.room.dirty), '': !userForm.controls.room.errors}" type="text" placeholder="room" name="room" formControlName="room">
+          <div *ngIf="userForm.controls.room.errors?.required && userForm.controls.room.dirty" class="invalid-feedback">You must provide a room number.</div>
+        </div>
+        <div class="col-md-4">
+            <input [textMask]="{mask: mask}" class="form-control" [ngClass]="{'is-invalid': (userForm.controls.phone.errors && userForm.controls.phone.dirty), '': !userForm.controls.phone.errors}" type="text" placeholder="phone number" name="phone"  formControlName="phone">
+            <div *ngIf="userForm.controls.phone.errors && userForm.controls.phone.dirty" class="invalid-feedback">You must provide a valid phone number.</div>
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <button type="button" (click)="onUserFormSubmit()" class="btn btn-primary" [disabled]="(!approved.dirty && !userForm.dirty) || userForm.invalid">Update</button>
+        </div>
+        <div class="col-4">
+          <button type="button" (click)="openDialog(user)" class="btn btn-secondary"  [disabled]="!approved.dirty && !userForm.dirty">Cancel</button>
+        </div>
+        <div class="col-4">
+          <button type="button" (click)="openDeleteDialog()" class="btn btn-danger">Delete</button>
+        </div>
+      </div>
+    </form>
+  </p-sidebar>
+<p-dialog header="Confirm!" [(visible)]="displayDelete" modal="modal" [responsive]="true" [width]="400" [minWidth]="400">
+  <span class="text-muted">
+      Are you sure you want to delete {{name != '' ? users[user].first + "'s": "this user's"}} account?
+  </span>
+  <p-footer>
+    <div class="row">
+      <div class="col-3 offset-6">
+        <button type="button" class="btn btn-primary" (click)="deleteUser(user)">Yes</button>
+      </div>
+      <div class="col-3">
+        <button type="button" class="btn btn-secondary" (click)="displayDelete=false;">No</button>
+      </div>
+    </div>
+  </p-footer>
+</p-dialog>
+<p-dialog header="Confirm!" [(visible)]="displayLab" modal="modal" [responsive]="true" [width]="400" [minWidth]="400">
+    <span class="text-muted">
+       Are you sure you want to approve ALL lab accounts?
+    </span>
+    <p-footer>
+      <div class="row">
+        <div class="col-3 offset-6">
+          <button type="button" class="btn btn-success" (click)="approveLabAccounts()">Yes</button>
+        </div>
+        <div class="col-3">
+          <button type="button" class="btn btn-secondary" (click)="displayLab=false;">No</button>
+        </div>
+      </div>
+    </p-footer>
+  </p-dialog>
+<p-growl [(value)]="msgs" [sticky]="true"></p-growl>
+<div class="row mt-5" *ngIf="loading">
+  <div class="col-6 offset-6 mt-3">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+</div>

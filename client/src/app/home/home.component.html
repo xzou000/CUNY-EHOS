@@ -1,0 +1,23 @@
+<div class="container-fluid">
+  <div class="row justify-content-center" style="margin-top: 3.5%;">
+    <div class="logo">
+      <span>
+      CUNY
+      <span class="col-blue-grey">EHOS</span>
+      </span>
+    </div>
+  </div>
+  <div class="row mt-1">
+      <div class="col-sm-8 col-md-8 col-lg-8 offset-lg-2 offset-md-2 offset-sm-2">
+        <div class="card">
+          <div class="card-body">
+            <app-login *ngIf="loginFlag"></app-login>
+            <app-register *ngIf="!loginFlag"></app-register>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="row justify-content-center mt-4">
+      <p class="col-blue-grey text-muted text-center font-bold">{{loginFlag ? "Not registered?": "Registered?"}}<a href="javascript:void(0)" (click)="toggleForms()" >{{loginFlag ? " Create an account":" Sign in"}}</a></p>
+  </div>
+</div>

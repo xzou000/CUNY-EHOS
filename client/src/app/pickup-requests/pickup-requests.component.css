@@ -1,0 +1,42 @@
+.info-box .icon i {
+    padding: 2.5px 5px;    
+    font-size: 1.5em;
+    line-height: 1.75rem;
+    display: block;
+    position: relative;
+    margin-bottom: 1.5px;
+    text-align: center;
+    position: relative;
+    color: #FFF;
+}
+.info-box {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    height: 80px;
+    display: flex;
+    cursor: default;
+    background-color: #673AB7;
+    position: relative;
+    overflow: hidden;
+}
+.info-box .icon {
+    display: inline-block;
+    text-align: center;
+    background: #6c757d;
+    /* background-color: rgba(0, 0, 0, 0.12); */
+}
+.info-box .content {
+    color: #FFF;
+    display: inline-block;
+    padding: 2.5px 5px;
+}
+.info-box .text {
+    margin-top: 5px;
+    font-size: 0.8rem;
+}
+.center {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+a:hover {
+    text-decoration: none !important;
+}

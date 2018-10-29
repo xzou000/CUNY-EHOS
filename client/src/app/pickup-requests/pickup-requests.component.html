@@ -1,0 +1,116 @@
+<div class="card">
+  <div class="card-body">
+    <div class="form-group row">
+      <div class="col-md-5 col-lg-4">
+          <p class="h3">New Requests</p>
+          <p class="text-muted">Sorted by date requested</p>
+      </div>
+      <div class="col-md-4 col-lg-3 offset-md-3 offset-lg-5 justify-content-right">
+        <button class="btn btn-secondary" [routerLink]="['../pickup-schedule']">View Schedule</button>
+      </div>
+    </div>
+    <div *ngFor="let request of requests; let i=index;">
+      <div class="form-group row" *ngIf="request.pending">
+        <div class="col-12">
+          <div class="info-box">
+              <div class="col-md-4 col-lg-3 icon">
+                <i>{{ request.requested.split(" ")[0] +" " + request.requested.split(" ")[1]}}</i>
+                <i>{{ request.requested.split(" ")[2] }}</i>
+              </div>  
+              <div class="col-md-5 col-lg-5 content">
+                <div class="text">
+                  <!-- Need actual name here, not their ID {{request.request}} returns some number which is their ID-->
+                    {{request.name}}
+                </div>
+                <div class="text">
+                  Location: {{request.location}}
+                </div>
+                <div class="text">
+                  Items:  {{request.items.length}}
+                </div>
+              </div>
+              <div class="col-md-3 col-lg-2 offset-lg-2 center">
+                <button class="btn btn-outline-secondary" (click)="wastePickupDialog(i)">Schedule</button>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p-sidebar [(visible)]="dialog" [fullScreen]="true" [style]="{'overflow-y': 'scroll'}">
+  <div class="container-fluid">
+    <p class="h3">Waste Pickup Details</p>
+    <div class="row">
+      <div class="form-group col-md-3 col-lg-3">
+        <label for="requester">Requested by</label>
+        <input type="text" id="requester" class="form-control" #requester readonly>
+      </div>
+      <div class="form-group col-md-3 col-lg-3">
+        <label for="location">Location</label>
+        <input type="text" id="location" class="form-control" #location readonly>
+      </div>
+      <div class="form-group col-md-3 col-lg-3">
+        <label for="requested">Requested</label>
+        <input type="text" id="requested" class="form-control" #requested readonly>
+      </div>
+    </div>
+    <p class="h3">Waste Items</p>
+    <div class="form-group row">
+      <div class="col-12">
+          <p-accordion>
+              <p-accordionTab header="Waste {{i+1}}" *ngFor="let item of requestItems; let i=index;">
+                <div class="row">
+                  <div class="form-group col-4">
+                    <label for="container">Container Type</label>
+                    <input type="text" id="container" class="form-control" value="{{item.containerType}}" readonly>
+                  </div>
+                  <div class="form-group col-4">
+                    <label for="hazard">Hazard Class</label>
+                    <input type="text" id="hazard" class="form-control" value="{{item.hazardClass}}" readonly>
+                  </div>
+                  <div class="form-group col-4">
+                    <label for="items">Chemicals</label>
+                    <input type="text" id="items" class="form-control" value="{{requestItems[i].chemicals.length}}" readonly>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-8">
+                    <p class="h5">Chemicals</p>
+                    <table class="table">
+                        <thead class="thead-light">
+                          <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Percent Fraction</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let chemical of requestItems[i].chemicals; let i=index;">
+                            <td>{{chemical.name}}</td>
+                            <td>{{chemical.percentFraction}}%</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                  </div>
+                </div>
+              </p-accordionTab>
+          </p-accordion>
+      </div>
+    </div>
+    <p class="h3">Schedule pickup date</p>
+    <div class="form-group row">
+      <div class="col-md-4 col-lg-3">
+          <p-calendar [(ngModel)]="date" [showTime]="true" [hourFormat]="12" inputStyleClass="form-control"></p-calendar>
+      </div>
+      <div class="col-md-3 col-lg-2">
+        <button class="btn btn-primary" [disabled]="!date" (click)="schedulePickup()">Schedule</button>      
+      </div>
+    </div>
+    <!-- <div class="row">
+      <div class="col-md-3 col-lg-2">
+        <button class="btn btn-danger">Delete</button>      
+      </div>
+    </div> -->
+  </div>
+</p-sidebar>
+<p-growl [(value)]="msgs" [sticky]="true" [baseZIndex]="11100"></p-growl>
