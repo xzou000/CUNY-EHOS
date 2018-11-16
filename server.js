@@ -20,17 +20,19 @@ const waste = require('./routes/waste')(router);
 const schedule = require('./routes/schedule')(router);
 const labs = require('./routes/labs')(router);
 const bodyParser = require('body-parser'); // node plugin to help parse response body
+
+const port = process.env.PORT || 3000;
+
 mongoose.Promise = global.Promise; // Config declaration for mongoose
 // Our method that attempts to create a connection to our database
-mongoose.connect(config.uri, config.options, (err) =>{
-  if (err) {
-    console.log("error ....\n - " + err);
-  }
-  else {
-    console.log("connected to db: " + config.db);
-  }
-}).catch( (reason) =>{
-  console.log(reason);
+mongoose.connect(config.uri, config.options, (err) => {
+    if (err) {
+        console.log("error ....\n - " + err);
+    } else {
+        console.log("connected to db: " + config.db);
+    }
+}).catch((reason) => {
+    console.log(reason);
 });
 
 /* Our middleware*/
@@ -51,10 +53,10 @@ app.use('/waste', waste);
 app.use('/schedule', schedule);
 
 // We configure our route so that we always redirect to our server page
-app.get('*', (request,response,next) =>{
-  // response.sendFile(path.join(__dirname + '/client/dist/index.html')); // Fully connect our angular app from here
+app.get('*', (request, response, next) => {
+    // response.sendFile(path.join(__dirname + '/client/dist/index.html')); // Fully connect our angular app from here
 });
 
-app.listen(3000, ()=>{
-  console.log("Server started on port 3000");
+app.listen(port, () => {
+    console.log(`Server started on port ${port}`);
 });
