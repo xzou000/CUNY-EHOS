@@ -37,7 +37,7 @@ mongoose.connect(config.uri, config.options, (err) => {
 
 /* Our middleware*/
 // Disable CORS for now
-app.use(cors({ origin: 'https://fathomless-mountain-49508.herokuapp.com/' }));
+app.use(cors({ origin: 'https://fathomless-mountain-49508.herokuapp.com' }));
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
