@@ -10,7 +10,7 @@ const httpOptions = {
 
 @Injectable()
 export class AuthService {
-  domain = "http://localhost:3000";
+  domain = "https://polar-castle-68205.herokuapp.com/";
   jwt;
   role;
   options;

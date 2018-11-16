@@ -9,7 +9,7 @@ const httpOptions = {
 
 @Injectable()
 export class UserService {
-  domain = "http://localhost:3000";
+  domain = "https://polar-castle-68205.herokuapp.com/";
   
   constructor(private http: HttpClient) { }
   getUsers(): Promise<any> {
