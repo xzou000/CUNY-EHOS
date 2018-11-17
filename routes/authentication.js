@@ -62,7 +62,7 @@ module.exports = (router) => {
     });
     // Our post request to log into the app
     router.post('/login', (request, response) => {
-        console.log(`I wanna ${request.body}`);
+        console.log(`I wanna ${JSON.stringify(request.body)}`);
         if (!request.body.email || !request.body.password) {
             response.status(400).json({ success: false, message: "Form was not filled out" });
         } else {
