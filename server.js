@@ -21,7 +21,7 @@ const schedule = require('./routes/schedule')(router);
 const labs = require('./routes/labs')(router);
 const bodyParser = require('body-parser'); // node plugin to help parse response body
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 mongoose.Promise = global.Promise; // Config declaration for mongoose
 // Our method that attempts to create a connection to our database
