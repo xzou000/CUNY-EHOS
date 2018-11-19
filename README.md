@@ -1,6 +1,6 @@
 # EHOS Assist
 Steven Barrios,  Emmmanuella D. I. Kogda, Xiaohang Zou, Boris Kalmatsky
-![Website Link](https://fathomless-mountain-49508.herokuapp.com/)
+<a href="https://fathomless-mountain-49508.herokuapp.com/" target="Website_link">
 User account: sample@gmail.com password: Sample123
 Manager User Account: Manager@gmail.com Password: Manager123
 
