@@ -1,8 +1,8 @@
 # EHOS Assist
 Steven Barrios,  Emmmanuella D. I. Kogda, Xiaohang Zou, Boris Kalmatsky
-<a href="https://fathomless-mountain-49508.herokuapp.com/" target="Website_link">
-User account: sample@gmail.com password: Sample123
-Manager User Account: Manager@gmail.com Password: Manager123
++ <a href="https://fathomless-mountain-49508.herokuapp.com/" target="Website_link">
++ User account: sample@gmail.com password: Sample123
++ Manager User Account: Manager@gmail.com Password: Manager123
 
 This project is to provide a portal designed to facilitate a variety of safety-related services at CCNY laboratories.
 This includes but is not limited to:
